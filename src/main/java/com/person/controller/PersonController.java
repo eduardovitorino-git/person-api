@@ -1,9 +1,12 @@
 package com.person.controller;
 
 import com.person.dto.PersonDto;
-import com.person.entity.Person;
 import com.person.service.PersonService;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,8 +20,9 @@ public class PersonController {
         this.service = service;
     }
 
-    @GetMapping("/people")
-    public List<PersonDto> findAll() {
-        return service.findAll();
+    @GetMapping(value = "/people", params = {"page", "size"})
+    public List<PersonDto> findAll(@RequestParam("page") int page, @RequestParam("size") int size) throws Exception {
+        Page<PersonDto> resultPage = service.findPaginated(page, size);
+        return resultPage.getContent();
     }
 }
