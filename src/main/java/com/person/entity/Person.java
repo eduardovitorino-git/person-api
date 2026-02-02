@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -27,13 +28,14 @@ public class Person {
 //    private Document document;
 //    private Address address;
 //    private UserAccount userAccount;
-//
+
 //    // One-to-Many candidates
-//    private List<Phone> phones;
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Phone> phones = new ArrayList<>();
 //    private List<BankAccount> bankAccounts;
 //    private List<Vehicle> vehicles;
 //    private List<Pet> pets;
-//
+
 //    // Many-to-Many candidates
 //    private Set<Course> courses;
 //    private Set<Project> projects;
